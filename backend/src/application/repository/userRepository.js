@@ -1,7 +1,7 @@
 const userModel = require('../../domain/models/userModel');
 
 const { SuccessResponse, ErrorResponse } = require('../utils/respuestasHTTP');
-const MongoErrorHandler = require('../utils/mongoErrorHandler');
+const MongoErrorHandler = require('../utils/handlers/mongoErrorHandler');
 
 
 class userRepository {

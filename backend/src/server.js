@@ -1,5 +1,8 @@
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
+const userRouter = require('./infrastructure/routers/userRouter');
+
+
 
 //  Esta funcion inicializa todas las rutas de la aplicación, luego será utilizada en app.js para correr la aplicación.
 
@@ -9,6 +12,8 @@ const createServer = () => {
 
     app.use(express.json());
     app.use(cors())
+
+    app.use('/user', userRouter)
     
     return app;
 
