@@ -10,8 +10,7 @@ class userService {
     async createLocalUser(data) {
 
         try {
-
-            data.googleId = null;
+            
             data.authProvider = 'local';
 
             const HashedPassword = await bcrypt.hash(data.password, 10);
