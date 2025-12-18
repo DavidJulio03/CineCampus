@@ -1,51 +1,150 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import LoginForm from "./components/LoginForm"
 import SignupForm from "./components/SignUpForm"
+import Dashboard from "./components/ProfileView"
 
 function App() {
+  const [user, setUser] = useState(null)
   const [view, setView] = useState("login")
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const handleLogin = (credentials) => {
-    console.log("LOGIN:", credentials)
-  }
+  useEffect(() => {
 
-  const handleSignup = async (userData) => {
+    const checkAuth = async () => {
+
+      try {
+
+        const res = await fetch("http://localhost:3000/user/auth/me", {
+          credentials: "include"
+        })
+
+        if (!res.ok) throw new Error()
+
+        const data = await res.json()
+        setUser(data)
+
+      } catch {
+
+        setUser(null)
+
+      } finally {
+
+        setLoading(false)
+
+      }
+
+    }
+
+    checkAuth()
+
+  }, [])
+
+  const handleLogin = async (credentials) => {
+
     setLoading(true)
     setError(null)
 
     try {
 
-      console.log(userData)
-      const res = await fetch("http://localhost:3000/user/signin", {
+      const res = await fetch("http://localhost:3000/user/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(userData)
+        credentials: "include",
+        body: JSON.stringify(credentials)
       })
 
-      const data = await res.json()
-
-      console.log(data)
       if (!res.ok) {
-        throw new Error(data.message || "Error al crear cuenta")
+        const err = await res.json()
+        throw new Error(err.message || "Login inválido")
       }
 
-      console.log("SIGNUP OK:", data)
-      setView("login")
+      // Cookie ya quedó guardada por el navegador
+      // Ahora pedimos el usuario
+      const meRes = await fetch("http://localhost:3000/auth/me", {
+        credentials: "include"
+      })
+
+      const userData = await meRes.json()
+      setUser(userData)
 
     } catch (err) {
+
       setError(err.message)
 
     } finally {
+
       setLoading(false)
+
     }
+
   }
 
+
+  const handleSignup = async (data) => {
+    setLoading(true)
+    setError(null)
+
+    try {
+
+      const res = await fetch("http://localhost:3000/user/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include",
+        body: JSON.stringify(data)
+      })
+
+      if (!res.ok) {
+        const err = await res.json()
+        throw new Error(err.message || "Error al crear cuenta")
+      }
+
+      // Normalmente signup también deja sesión abierta
+      const meRes = await fetch("http://localhost:3000/auth/me", {
+        credentials: "include"
+      })
+
+      const userData = await meRes.json()
+      setUser(userData)
+
+    } catch (err) {
+
+      setError(err.message)
+
+    } finally {
+
+      setLoading(false)
+
+    }
+
+  }
+
+  if (loading) {
+    return <p>Cargando...</p>
+  }
+
+  if (user) {
+    return (
+      <Dashboard
+        user={user}
+        onLogout={() => {
+          setUser(null)
+        }}
+      />
+    )
+  }
+
+
   return (
+
+        
     <div>
+
+      
       <h1>{view === "login" ? "Login" : "Signup"}</h1>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
