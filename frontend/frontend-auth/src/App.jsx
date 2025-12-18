@@ -123,6 +123,17 @@ function App() {
 
   }
 
+
+  const handleLogout = async () => {
+    await fetch("http://localhost:3000/user/auth/logout", {
+      method: "GET",
+      credentials: "include"
+    })
+
+    setUser(null)
+  }
+  
+
   if (loading) {
     return <p>Cargando...</p>
   }
@@ -131,9 +142,7 @@ function App() {
     return (
       <Dashboard
         user={user}
-        onLogout={() => {
-          setUser(null)
-        }}
+        onLogout={handleLogout}
       />
     )
   }
