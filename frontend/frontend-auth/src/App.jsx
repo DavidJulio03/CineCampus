@@ -63,7 +63,7 @@ function App() {
 
       // Cookie ya quedó guardada por el navegador
       // Ahora pedimos el usuario
-      const meRes = await fetch("http://localhost:3000/auth/me", {
+      const meRes = await fetch("http://localhost:3000/user/auth/me", {
         credentials: "include"
       })
 
@@ -104,7 +104,7 @@ function App() {
       }
 
       // Normalmente signup también deja sesión abierta
-      const meRes = await fetch("http://localhost:3000/auth/me", {
+      const meRes = await fetch("http://localhost:3000/user/auth/me", {
         credentials: "include"
       })
 
