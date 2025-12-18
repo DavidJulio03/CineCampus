@@ -24,5 +24,10 @@ userRouter.get('/auth/me',
     (req, res) => userController.authMe(req, res)
 )
 
+
+userRouter.get('/auth/logout', 
+    (req, res) => userController.LogOut(req, res)
+)
+
 module.exports = userRouter
 

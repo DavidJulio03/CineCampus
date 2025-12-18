@@ -45,6 +45,21 @@ class userController {
 
     }
 
+    async LogOut(req, res) {
+        
+        console.log("Hola")
+
+        res.clearCookie('access_token', {
+            httpOnly: true,
+            secure: false,
+            sameSite: "Lax",
+            maxAge: 60 * 60 * 1000, // 1 hora
+        });
+
+        return res.status(200).json({message: "Sesion cerrada correctamente"})
+
+    }
+
 }
 
 module.exports = new userController();
