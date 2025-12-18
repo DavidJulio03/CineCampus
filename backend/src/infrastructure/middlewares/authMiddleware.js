@@ -1,4 +1,4 @@
-const JWTService = require("../utils/JWTService");
+const JWTService = require("../../application/utils/JWTService");
 
 function auth(req, res, next) {
 

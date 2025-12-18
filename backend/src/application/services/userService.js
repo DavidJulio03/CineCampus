@@ -80,6 +80,25 @@ class userService {
 
     }
 
+    
+    async authMe(email) {
+
+        try {
+
+            const user = await userRepository.obtenerUserPorEmail(email);
+            const { password, ...userSinPassword } = user.data.toObject();
+            user.data = userSinPassword
+
+            return user
+            
+        } catch (error) {
+            
+            return new ErrorResponse(500, '', error)
+            
+        }
+
+    }
+
 }
 
 module.exports = new userService()

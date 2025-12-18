@@ -12,7 +12,7 @@ class userController {
         if (user.token) {res.cookie('access_token', user.token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "None",
             maxAge: 60 * 60 * 1000, // 1 hora
         })}
 
@@ -29,10 +29,18 @@ class userController {
         if (user.token) {res.cookie('access_token', user.token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "None",
             maxAge: 60 * 60 * 1000, // 1 hora
         })}
 
+        return res.status(user.status).json(user.data)
+
+    }
+
+    
+    async authMe(req, res) {
+
+        const user = await userService.authMe(req.user.email);
         return res.status(user.status).json(user.data)
 
     }
