@@ -11,8 +11,8 @@ class userController {
         //Si el service no nos devuelve un error, enviamos la cookie.
         if (user.token) {res.cookie('access_token', user.token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "None",
+            secure: false,
+            sameSite: "Lax",
             maxAge: 60 * 60 * 1000, // 1 hora
         })}
 
@@ -28,8 +28,8 @@ class userController {
         //Si el service no nos devuelve un error, enviamos la cookie.
         if (user.token) {res.cookie('access_token', user.token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "None",
+            secure: false,
+            sameSite: "Lax",
             maxAge: 60 * 60 * 1000, // 1 hora
         })}
 
