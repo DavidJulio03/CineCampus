@@ -36,6 +36,28 @@ const userSchema = new mongoose.Schema({
         default: undefined 
     },
 
+    membresia: {
+        type: String,
+        required: true,
+        enum: ['Ninguna', 'VIP'],
+        default: 'Ninguna'
+    },
+
+    cupones_activos: {
+        type: Array,
+        required: true
+    },
+
+    tickets_activos: {
+        type: Array,
+        required: true
+    },
+
+    historial_tickets: {
+        type: Array,
+        required: true
+    }
+
 }, {
     timestamps: true
 });
