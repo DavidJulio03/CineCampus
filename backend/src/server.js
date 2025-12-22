@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieParser = require("cookie-parser");
 const userRouter = require('./infrastructure/routers/userRouter');
+const moviesRouter = require('./infrastructure/routers/moviesRouter')
 
 
 
@@ -19,6 +20,7 @@ const createServer = () => {
     app.use(cookieParser())
 
     app.use('/user', userRouter)
+    app.use('/movies', moviesRouter)
     
     return app;
 
