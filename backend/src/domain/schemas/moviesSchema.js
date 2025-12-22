@@ -6,7 +6,8 @@ const moviesSchema = new mongoose.Schema({
         
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        unique: true
     },
 
     descripcion: {
@@ -43,10 +44,12 @@ const moviesSchema = new mongoose.Schema({
     data: {
         trailer: {
             type: String,
+            unique: true,
             required: true
         },
         banner: {
             type: String,
+            unique: true,
             required: true
         }
     }
