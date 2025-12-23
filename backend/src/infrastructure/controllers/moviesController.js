@@ -25,6 +25,34 @@ class moviesController {
 
     }
 
+    async obtenerMovies(req, res) {
+        
+        const movie = await moviesRepository.obtenerMoviesRepository()
+        return res.status(movie.status).json(movie)
+
+    }
+
+    async obtenerMoviePorId(req, res) {
+        
+        const movie = await moviesRepository.obtenerMoviePorIdRepository(req.params.id)
+        return res.status(movie.status).json(movie)
+
+    }
+
+    async obtenerMoviePorNombre(req, res) {
+        
+        const movie = await moviesRepository.obtenerMoviePorNombreRepository(req.params.nombre)
+        return res.status(movie.status).json(movie)
+
+    }
+
+    async obtenerMoviesCartelera(req, res) {
+        
+        const movie = await moviesRepository.obtenerPeliculasEnCarteleraRepository()
+        return res.status(movie.status).json(movie)
+
+    }
+
 }
 
 module.exports = new moviesController();

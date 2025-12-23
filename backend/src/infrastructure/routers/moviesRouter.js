@@ -26,4 +26,24 @@ moviesRouter.delete('/:id',
     (req, res) => moviesController.eliminarMovie(req, res)
 )
 
+moviesRouter.get('/',
+    // auth,
+    (req, res) => moviesController.obtenerMovies(req, res)
+)
+
+moviesRouter.get('/:id',
+    // auth,
+    (req, res) => moviesController.obtenerMoviePorId(req, res)
+)
+
+moviesRouter.get('/nombre/:nombre',
+    // auth,
+    (req, res) => moviesController.obtenerMoviePorNombre(req, res)
+)
+
+moviesRouter.get('/cartelera/activo',
+    // auth,
+    (req, res) => moviesController.obtenerMoviesCartelera(req, res)
+)
+
 module.exports = moviesRouter
